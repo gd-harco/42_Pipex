@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/15 11:18:35 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/02/15 12:47:48 by gd-harco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:37:49 by gd-harco          #+#    #+#             */
@@ -11,22 +23,41 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "../libft/includes/libft.h"
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
 
 int	main(int argc, char **argv, char *envp[])
 {
-	char	*my_argv[5];
-	char	path[] = "/usr/bin/ls";
+	char	*path_str;
+	char	**paths;
+	char	*cur_path;
+	char	**new_argv;
+	int		index;
 
-
-	my_argv[0] = path;
-	my_argv[1] = NULL;
-	if (execve(path, my_argv, __environ) == -1)
+	index = 0;
+	path_str = NULL;
+	while (*envp[index])
 	{
-		ft_printf("%s\n", strerror(errno));
+		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
+		{
+			path_str = ft_strpdup(envp[index], 5);
+			break ;
+		}
+		index++;
 	}
+	if (!path_str)
+		return (1);
+	index = 0;
+	paths = ft_split(path_str, ':');
+	free (path_str);
+	new_argv = malloc(sizeof (char *) * (argc + 1));
+	new_argv[2] = NULL;
+	cur_path = ft_strjoin(3, paths[index], "/", argv[1]);
+	while (paths[index] && access(cur_path, X_OK) != 0)
+	{
+		index++;
+		cur_path = ft_strjoin(3, paths[index], "/", argv[1]);
+	}
+	new_argv[0] = cur_path;
+	new_argv[1] = NULL;
+	execve(cur_path, new_argv, envp);
 	return (0);
 }

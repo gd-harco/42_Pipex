@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "memory.h"
+#include "/nfs/homes/gd-harco/Documents/libft/includes/memory.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

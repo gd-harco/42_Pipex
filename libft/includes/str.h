@@ -13,13 +13,15 @@
 #ifndef STR_H
 # define STR_H
 # include <stdlib.h>
+# include <stdarg.h>
 
 char	**ft_split(char const *s, char c);
 void	ft_free_split(void *splitted_element);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
+char	*ft_strpdup(const char *s1, int index);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(int str_nb, ...);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char	*s);

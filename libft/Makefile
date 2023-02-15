@@ -67,6 +67,7 @@ C_FILES 		=	char/ft_isalnum.c	\
 				str/ft_free_split.c	\
 				str/ft_strchr.c		\
 				str/ft_strdup.c		\
+				str/ft_strpdup.c	\
 				str/ft_striteri.c	\
 				str/ft_strjoin.c	\
 				str/ft_strlcat.c	\
@@ -99,7 +100,7 @@ OBJS_DEBUG		=	${addprefix ${DIR_OBJS},${SRCS:.c=_debug.o}}
 
 CC				= cc
 
-FLAGS 			= -Wall -Wextra -Werror
+FLAGS 			= -Wall -Wextra -Werror -g3
 
 DEBUG_FLAGS		=-g3 -fsanitize=address
 
