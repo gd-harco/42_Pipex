@@ -42,6 +42,7 @@ int	main(int argc, char **argv, char *envp[])
 	char	*cur_path;
 	char	**new_argv;
 	int		index;
+	pid_t	pid1;
 
 	index = 0;
 	paths = get_path(envp);
@@ -57,8 +58,18 @@ int	main(int argc, char **argv, char *envp[])
 	new_argv[0] = cur_path;
 	new_argv[1] = NULL;
 	ft_free_split(paths);
-	execve(cur_path, new_argv, envp);
+	pid1 = fork();
+	if (pid1 == -1)
+	{
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		free(cur_path);
+		free(new_argv);
+		return (1);
+	}
+	if (pid1 == 0)
+		execve(cur_path, new_argv, envp);
 	free(cur_path);
 	free(new_argv);
+
 	return (0);
 }
