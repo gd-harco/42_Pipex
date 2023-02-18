@@ -6,13 +6,48 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:18:35 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/15 15:02:23 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:43:44 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**get_path(char **envp)
+static void clean_exit(char **tab_to_free);
+static char	**get_path(char **envp);
+static void launch_fonction(char *in_file, char *command, char **path_tab, char **envp);
+
+int	main(int argc, char **argv, char *envp[])
+{
+	char	**path_tab;
+	int		pipe_fd[2];
+	pid_t	pid;
+
+	(void)argc;
+	path_tab = get_path(envp);
+	if (pipe(pipe_fd) == -1)
+		clean_exit(path_tab);
+	pid = fork();
+	if (pid == -1)
+		clean_exit(path_tab);
+	if (pid == 0)
+		launch_fonction(argv[1], argv[2], path_tab, envp);
+	else
+	{
+		wait(NULL);
+		ft_printf("Worked ?\n");
+	}
+	ft_free_split(path_tab);
+		return (0);
+}
+
+static void clean_exit(char **tab_to_free)
+{
+	ft_free_split(tab_to_free);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	exit (1);
+}
+
+static char	**get_path(char **envp)
 {
 	char	*path_str;
 	int		index;
@@ -36,40 +71,26 @@ char	**get_path(char **envp)
 	return (result);
 }
 
-int	main(int argc, char **argv, char *envp[])
+static void launch_fonction(char *in_file, char *command, char **path_tab, char **envp)
 {
-	char	**paths;
-	char	*cur_path;
-	char	**new_argv;
-	int		index;
-	pid_t	pid1;
+	int	i;
+	char *cur_path;
+	char **new_arg;
 
-	index = 0;
-	paths = get_path(envp);
-	new_argv = malloc(sizeof (char *) * (argc + 1));
-	new_argv[2] = NULL;
-	cur_path = ft_strjoin(3, paths[index], "/", argv[1]);
-	while (paths[index] && access(cur_path, X_OK) != 0)
+	new_arg = malloc(sizeof(char *) * 3);
+	new_arg[1] = in_file;
+	new_arg[2] = NULL;
+	i = 0;
+	while (path_tab[i])
 	{
-		index++;
+		//TODO supprimer cette version de stjoin, VA_ARGS interdit
+		cur_path = ft_strjoin(3, path_tab[i], "/", command);
+		new_arg[0] = cur_path;
+		//TODO Utiliser ACCESS pour trouver l'emplacement de la comande
+		execve(cur_path, new_arg, envp);
+		i++;
 		free(cur_path);
-		cur_path = ft_strjoin(3, paths[index], "/", argv[1]);
 	}
-	new_argv[0] = cur_path;
-	new_argv[1] = NULL;
-	ft_free_split(paths);
-	pid1 = fork();
-	if (pid1 == -1)
-	{
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
-		free(cur_path);
-		free(new_argv);
-		return (1);
-	}
-	if (pid1 == 0)
-		execve(cur_path, new_argv, envp);
-	free(cur_path);
-	free(new_argv);
-
-	return (0);
+	ft_free_array((void**)new_arg);
+	clean_exit(path_tab);
 }

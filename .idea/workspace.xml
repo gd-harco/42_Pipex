@@ -21,7 +21,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f2f48d3-2ab2-453e-b5ad-d00859e9a3ea" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/pipex.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/pipex.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pipex" beforeDir="false" afterPath="$PROJECT_DIR$/pipex" afterDir="false" />
@@ -39,6 +41,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="exo_fork" />
+      </map>
+    </option>
   </component>
   <component name="MakefileLocalSettings">
     <option name="availableProjects">
@@ -76,12 +85,14 @@
     <option name="minorVersion" value="3.2" />
   </component>
   <component name="ProjectId" id="2LjF3VFsam54FWYL0COcs3R3ko1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -94,7 +105,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -104,8 +115,16 @@
       <recent name="$PROJECT_DIR$/libft/srcs/str" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile Application.all">
-    <configuration name="all" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="&quot;ls&quot;" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="42_pipex" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="pipex">
+  <component name="RunManager" selected="Makefile Application.debug">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="42_pipex" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="pipex">
+      <method v="2" />
+    </configuration>
+    <configuration name="debug" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="Makefile ls " REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="42_pipex" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="pipex">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
@@ -127,6 +146,7 @@
     </configuration>
     <list>
       <item itemvalue="Makefile Application.all" />
+      <item itemvalue="Makefile Application.debug" />
       <item itemvalue="Makefile Application.fclean" />
       <item itemvalue="Makefile Application.re" />
       <item itemvalue="Makefile Application.pipex" />
@@ -144,14 +164,38 @@
       <workItem from="1676378298509" duration="5079000" />
       <workItem from="1676449500996" duration="648000" />
       <workItem from="1676455430955" duration="8417000" />
-      <workItem from="1676547255459" duration="4341000" />
+      <workItem from="1676547255459" duration="4578000" />
+      <workItem from="1676632759641" duration="1000000" />
+      <workItem from="1676633781059" duration="7975000" />
+      <workItem from="1676712509312" duration="108000" />
+      <workItem from="1676713177990" duration="3741000" />
+      <workItem from="1676726296800" duration="7474000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/libft" />
+    </ignored-roots>
+  </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/srcs/main.c</url>
+          <line>18</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/srcs/main.c</url>
+          <line>32</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="CLionNativeAppRunConfigurationType">
         <watch expression="envp[index]" language="ObjectiveC" />
