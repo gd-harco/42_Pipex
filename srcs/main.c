@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:18:35 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/18 16:43:44 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/02/21 11:28:52 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void clean_exit(char **tab_to_free);
+static void	clean_exit(char **tab_to_free);
 static char	**get_path(char **envp);
-static void launch_fonction(char *in_file, char *command, char **path_tab, char **envp);
+static void	launch_fonction(char *in_file, char *command,
+				char **path_tab, char **envp);
 
 int	main(int argc, char **argv, char *envp[])
 {
@@ -37,10 +38,10 @@ int	main(int argc, char **argv, char *envp[])
 		ft_printf("Worked ?\n");
 	}
 	ft_free_split(path_tab);
-		return (0);
+	return (0);
 }
 
-static void clean_exit(char **tab_to_free)
+static void	clean_exit(char **tab_to_free)
 {
 	ft_free_split(tab_to_free);
 	ft_putstr_fd(strerror(errno), STDERR_FILENO);
@@ -71,11 +72,12 @@ static char	**get_path(char **envp)
 	return (result);
 }
 
-static void launch_fonction(char *in_file, char *command, char **path_tab, char **envp)
+static void	launch_fonction(char *in_file, char *command,
+				char **path_tab, char **envp)
 {
-	int	i;
-	char *cur_path;
-	char **new_arg;
+	int		i;
+	char	*cur_path;
+	char	**new_arg;
 
 	new_arg = malloc(sizeof(char *) * 3);
 	new_arg[1] = in_file;
@@ -83,14 +85,12 @@ static void launch_fonction(char *in_file, char *command, char **path_tab, char 
 	i = 0;
 	while (path_tab[i])
 	{
-		//TODO supprimer cette version de stjoin, VA_ARGS interdit
 		cur_path = ft_strjoin(3, path_tab[i], "/", command);
-		new_arg[0] = cur_path;
-		//TODO Utiliser ACCESS pour trouver l'emplacement de la comande
-		execve(cur_path, new_arg, envp);
+		if (access(cur))
 		i++;
 		free(cur_path);
 	}
-	ft_free_array((void**)new_arg);
+	execve(cur_path, new_arg, envp);
+	ft_free_array((void **)new_arg);
 	clean_exit(path_tab);
 }
