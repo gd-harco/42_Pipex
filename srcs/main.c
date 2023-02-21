@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:18:35 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/21 11:28:52 by gd-harco         ###   ########lyon.fr   */
+/*   Updated: 2023/02/21 12:17:46 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	main(int argc, char **argv, char *envp[])
 	path_tab = get_path(envp);
 	if (pipe(pipe_fd) == -1)
 		clean_exit(path_tab);
+	ft_printf("\npipe done\n");
 	pid = fork();
+	ft_printf("fork done\n");
 	if (pid == -1)
 		clean_exit(path_tab);
 	if (pid == 0)
@@ -44,6 +46,7 @@ int	main(int argc, char **argv, char *envp[])
 static void	clean_exit(char **tab_to_free)
 {
 	ft_free_split(tab_to_free);
+	ft_putstr_fd("clean exit message : ", STDERR_FILENO);
 	ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	exit (1);
 }
@@ -79,6 +82,7 @@ static void	launch_fonction(char *in_file, char *command,
 	char	*cur_path;
 	char	**new_arg;
 
+	ft_printf("entered launch_function\n");
 	new_arg = malloc(sizeof(char *) * 3);
 	new_arg[1] = in_file;
 	new_arg[2] = NULL;
@@ -86,10 +90,16 @@ static void	launch_fonction(char *in_file, char *command,
 	while (path_tab[i])
 	{
 		cur_path = ft_strjoin(3, path_tab[i], "/", command);
-		if (access(cur))
-		i++;
+		if (!access(cur_path, X_OK))
+			i++;
+		else
+			break ;
 		free(cur_path);
 	}
+	new_arg[0] = cur_path;
+	i = -1;
+	while (new_arg[++i])
+		ft_printf("arg %d = %s\n", i, new_arg[i]);
 	execve(cur_path, new_arg, envp);
 	ft_free_array((void **)new_arg);
 	clean_exit(path_tab);
