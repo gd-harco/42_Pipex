@@ -23,7 +23,8 @@ LIBFT            =   libft/libft.a
 HEADERS_LIST	= pipex.h
 
 SRCS_LIST		=	main.c												\
-					parsing/file.c	parsing/command.c	parsing/arg.c
+					parsing/file.c	parsing/command.c	parsing/arg.c	\
+					error_handling/exit.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 

@@ -12,7 +12,6 @@
 
 #include "pipex.h"
 
-static void	clean_exit(char **tab_to_free);
 static char	**get_path(char **envp);
 static void	launch_fonction(char *in_file, char *command,
 				char **path_tab, char **envp);
@@ -24,15 +23,13 @@ int	main(int argc, char **argv, char *envp[])
 	int		pipe_fd[2];
 	pid_t	pid;
 
-	(void)argc;
+	parse_file(&data, argv, argc);
 	path_tab = get_path(envp);
-//	if (pipe(pipe_fd) == -1)
-//		clean_exit(path_tab);
-	ft_printf("\npipe done\n");
-	pid = fork();
+	//TODO parse every cmd and arg
+	parse_cmd(&data, argv, argc, path_tab);
 	ft_printf("fork done\n");
 	if (pid == -1)
-		clean_exit(path_tab);
+		clean_exit(path_tab, &data);
 	if (pid == 0) {
 		wait(NULL);
 		ft_printf("Worked ?\n");
@@ -43,14 +40,6 @@ int	main(int argc, char **argv, char *envp[])
 	}
 	ft_free_split(path_tab);
 	return (0);
-}
-
-static void	clean_exit(char **tab_to_free)
-{
-	ft_free_split(tab_to_free);
-	ft_putstr_fd("clean exit message : ", STDERR_FILENO);
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	exit (1);
 }
 
 static char	**get_path(char **envp)
@@ -89,7 +78,7 @@ static void	launch_fonction(char *in_file, char *command,
 	dup2(infile_fd, STDIN_FILENO);
 	new_arg = malloc(sizeof(char *) * 2);
 	if (!new_arg)
-		clean_exit(path_tab);
+		clean_exit(path_tab, &data);
 	new_arg[0] = NULL;
 	new_arg[1] = NULL;
 	i = 0;
@@ -110,5 +99,5 @@ static void	launch_fonction(char *in_file, char *command,
 		new_arg[0] = command;
 	execve(new_arg[0], new_arg, envp);
 	ft_free_array((void **)new_arg);
-	clean_exit(path_tab);
+	clean_exit(path_tab, &data);
 }
