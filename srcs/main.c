@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 11:18:35 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/21 12:17:46 by gd-harco         ###   ########lyon.fr   */
+/*   Created: 2023/02/22 10:47:17 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/02/22 13:59:25 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <fcntl.h>
 
 static void	clean_exit(char **tab_to_free);
 static char	**get_path(char **envp);
@@ -25,19 +26,20 @@ int	main(int argc, char **argv, char *envp[])
 
 	(void)argc;
 	path_tab = get_path(envp);
-	if (pipe(pipe_fd) == -1)
-		clean_exit(path_tab);
+//	if (pipe(pipe_fd) == -1)
+//		clean_exit(path_tab);
 	ft_printf("\npipe done\n");
 	pid = fork();
 	ft_printf("fork done\n");
 	if (pid == -1)
 		clean_exit(path_tab);
-	if (pid == 0)
-		launch_fonction(argv[1], argv[2], path_tab, envp);
-	else
-	{
+	if (pid == 0) {
 		wait(NULL);
 		ft_printf("Worked ?\n");
+	}else
+	{
+		launch_fonction(argv[1], argv[2], path_tab, envp);
+
 	}
 	ft_free_split(path_tab);
 	return (0);
@@ -81,26 +83,32 @@ static void	launch_fonction(char *in_file, char *command,
 	int		i;
 	char	*cur_path;
 	char	**new_arg;
+	int		infile_fd;
 
-	ft_printf("entered launch_function\n");
-	new_arg = malloc(sizeof(char *) * 3);
-	new_arg[1] = in_file;
-	new_arg[2] = NULL;
+	infile_fd = open(in_file, O_RDONLY);
+	dup2(infile_fd, STDIN_FILENO);
+	new_arg = malloc(sizeof(char *) * 2);
+	if (!new_arg)
+		clean_exit(path_tab);
+	new_arg[0] = NULL;
+	new_arg[1] = NULL;
 	i = 0;
-	while (path_tab[i])
+	if (access(command, X_OK) == -1)
 	{
-		cur_path = ft_strjoin(3, path_tab[i], "/", command);
-		if (!access(cur_path, X_OK))
-			i++;
-		else
-			break ;
-		free(cur_path);
+		while (path_tab[i])
+		{
+			cur_path = ft_strjoin(3, path_tab[i], "/", command);
+			if (access(cur_path, X_OK) == -1)
+				i++;
+			else
+				break;
+			free(cur_path);
+		}
+		new_arg[0] = cur_path;
 	}
-	new_arg[0] = cur_path;
-	i = -1;
-	while (new_arg[++i])
-		ft_printf("arg %d = %s\n", i, new_arg[i]);
-	execve(cur_path, new_arg, envp);
+	else
+		new_arg[0] = command;
+	execve(new_arg[0], new_arg, envp);
 	ft_free_array((void **)new_arg);
 	clean_exit(path_tab);
 }
