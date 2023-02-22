@@ -22,7 +22,8 @@ LIBFT            =   libft/libft.a
 
 HEADERS_LIST	= pipex.h
 
-SRCS_LIST		=	main.c
+SRCS_LIST		=	main.c												\
+					parsing/file.c	parsing/command.c	parsing/arg.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 
@@ -76,8 +77,6 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADERS}
 ${DIR_OBJS}		:
 					${MKDIR} ${DIR_OBJS}
 					${MKDIR} ${DIR_OBJS}/parsing
-					${MKDIR} ${DIR_OBJS}/actions
-					${MKDIR} ${DIR_OBJS}/sorting
 					@echo "\033[0;32m [${NAME}/bin] : ✔️ Successfully created bin directory\033[1;36m ${DIR_OBJS} !\033[0;00m"
 
 # ---- Usual Rules ---- #
@@ -88,6 +87,7 @@ clean			:
 
 fclean			:	clean
 					${RM} ${NAME}
+					make -C libft re
 					@echo "\033[0;31m [${NAME}] : ✔️ Successfully deleted executable\033[1;36m ${NAME} !\033[0;00m"
 
 re				:	fclean all

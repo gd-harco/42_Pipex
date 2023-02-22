@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <fcntl.h>
 
 static void	clean_exit(char **tab_to_free);
 static char	**get_path(char **envp);
@@ -20,6 +19,7 @@ static void	launch_fonction(char *in_file, char *command,
 
 int	main(int argc, char **argv, char *envp[])
 {
+	t_pipex	data;
 	char	**path_tab;
 	int		pipe_fd[2];
 	pid_t	pid;

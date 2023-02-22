@@ -17,4 +17,13 @@
 # include <string.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <fcntl.h>
+
+typedef struct s_pipex
+{
+	char	*infile;
+	char	*outfile;
+	char	***command;
+}				t_pipex;
+
 #endif
