@@ -13,14 +13,13 @@
 #include "pipex.h"
 
 static char	**get_path(char **envp);
-static void	launch_fonction(char *in_file, char *command,
-				char **path_tab, char **envp);
+static void	launch_function(char *in_file, char *command,
+							   char **path_tab, char **envp);
 
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	data;
 	char	**path_tab;
-	int		pipe_fd[2];
 	pid_t	pid;
 
 	parse_file(&data, argv, argc);
@@ -35,7 +34,7 @@ int	main(int argc, char **argv, char *envp[])
 		ft_printf("Worked ?\n");
 	}else
 	{
-		launch_fonction(argv[1], argv[2], path_tab, envp);
+		launch_function(argv[1], argv[2], path_tab, envp);
 
 	}
 	ft_free_split(path_tab);
@@ -66,8 +65,8 @@ static char	**get_path(char **envp)
 	return (result);
 }
 
-static void	launch_fonction(char *in_file, char *command,
-				char **path_tab, char **envp)
+static void	launch_function(char *in_file, char *command,
+							   char **path_tab, char **envp)
 {
 	int		i;
 	char	*cur_path;
@@ -78,7 +77,7 @@ static void	launch_fonction(char *in_file, char *command,
 	dup2(infile_fd, STDIN_FILENO);
 	new_arg = malloc(sizeof(char *) * 2);
 	if (!new_arg)
-		clean_exit(path_tab, &data);
+		clean_exit(path_tab, NULL);
 	new_arg[0] = NULL;
 	new_arg[1] = NULL;
 	i = 0;
@@ -99,5 +98,5 @@ static void	launch_fonction(char *in_file, char *command,
 		new_arg[0] = command;
 	execve(new_arg[0], new_arg, envp);
 	ft_free_array((void **)new_arg);
-	clean_exit(path_tab, &data);
+	clean_exit(path_tab, NULL);
 }

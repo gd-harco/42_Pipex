@@ -32,5 +32,7 @@ void clean_exit(char **tab_to_free, t_pipex *data);
 //----------------------------------------------------------------parsing/
 void	parse_file(t_pipex *data, char **argv, int argc);
 void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab);
+char **get_cmd_and_arg(char *argv, char **path_tab);
+
 
 #endif
