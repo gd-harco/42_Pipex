@@ -6,7 +6,8 @@
 *.ko
 *.obj
 *.elf
-bin/
+bin/*
+pipex-tester/*
 
 # Linker output
 *.ilk

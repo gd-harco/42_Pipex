@@ -24,7 +24,7 @@ HEADERS_LIST	= pipex.h
 
 SRCS_LIST		=	main.c												\
 					parsing/file.c	parsing/command.c					\
-					error_handling/exit.c
+					error_handling/error.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 
