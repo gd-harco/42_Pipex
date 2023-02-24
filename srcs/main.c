@@ -13,8 +13,6 @@
 #include "pipex.h"
 
 static char	**get_path(char **envp);
-static void	launch_function(char *in_file, char *command,
-							   char **path_tab, char **envp);
 
 int	main(int argc, char **argv, char *envp[])
 {
@@ -24,7 +22,6 @@ int	main(int argc, char **argv, char *envp[])
 
 	parse_file(&data, argv, argc);
 	path_tab = get_path(envp);
-	//TODO parse every cmd and arg
 	parse_cmd(&data, argv, argc, path_tab);
 	ft_printf("fork done\n");
 	if (pid == -1)
@@ -34,8 +31,7 @@ int	main(int argc, char **argv, char *envp[])
 		ft_printf("Worked ?\n");
 	}else
 	{
-		launch_function(argv[1], argv[2], path_tab, envp);
-
+//		launch_function(argv[1], argv[2], path_tab, envp);
 	}
 	ft_free_split(path_tab);
 	return (0);
@@ -63,40 +59,4 @@ static char	**get_path(char **envp)
 	result = (ft_split(path_str, ':'));
 	free(path_str);
 	return (result);
-}
-
-static void	launch_function(char *in_file, char *command,
-							   char **path_tab, char **envp)
-{
-	int		i;
-	char	*cur_path;
-	char	**new_arg;
-	int		infile_fd;
-
-	infile_fd = open(in_file, O_RDONLY);
-	dup2(infile_fd, STDIN_FILENO);
-	new_arg = malloc(sizeof(char *) * 2);
-	if (!new_arg)
-		clean_exit(path_tab, NULL);
-	new_arg[0] = NULL;
-	new_arg[1] = NULL;
-	i = 0;
-	if (access(command, X_OK) == -1)
-	{
-		while (path_tab[i])
-		{
-			cur_path = ft_strjoin(3, path_tab[i], "/", command);
-			if (access(cur_path, X_OK) == -1)
-				i++;
-			else
-				break;
-			free(cur_path);
-		}
-		new_arg[0] = cur_path;
-	}
-	else
-		new_arg[0] = command;
-	execve(new_arg[0], new_arg, envp);
-	ft_free_array((void **)new_arg);
-	clean_exit(path_tab, NULL);
 }
