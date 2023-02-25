@@ -34,9 +34,10 @@ void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
 	}
 	if (!path_str)
 		exit (1);
-	path_tab = (ft_split(path_str, ':'));
+	path_tab = ft_split(path_str, ':');
 	free(path_str);
 	parse_cmd(data, argv, argc, path_tab);
+	ft_free_split(path_tab);
 }
 
 void	parse_file(t_pipex *data, char **argv, int argc)
