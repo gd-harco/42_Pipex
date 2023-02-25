@@ -12,21 +12,16 @@
 
 #include "pipex.h"
 
-static char	**get_path(char **envp);
-
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	data;
-	char	**path_tab;
 	int		cur_cmd;
 	pid_t	pid;
 
 	if (argc < 5)
 		return (0);
 	cur_cmd = 0;
-	parse_file(&data, argv, argc);
-	path_tab = get_path(envp);
-	parse_cmd(&data, argv, argc, path_tab);
+	parsing_full(&data, argv, envp, argc);
 	dup2(data.infile_fd, STDIN_FILENO);
 	while (cur_cmd < data.command_nb - 1)
 	{
@@ -57,33 +52,8 @@ int	main(int argc, char **argv, char *envp[])
 		execve(data.command[cur_cmd][0], data.command[cur_cmd], envp);
 		my_perror(data.command[cur_cmd][0]);
 	}
-		else
+	else
 		wait(NULL);
-	ft_free_split(path_tab);
 	clean_struct(&data);
 	return (0);
-}
-
-static char	**get_path(char **envp)
-{
-	char	*path_str;
-	int		index;
-	char	**result;
-
-	index = 0;
-	path_str = NULL;
-	while (*envp[index])
-	{
-		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
-		{
-			path_str = ft_strpdup(envp[index], 5);
-			break ;
-		}
-		index++;
-	}
-	if (!path_str)
-		exit (1);
-	result = (ft_split(path_str, ':'));
-	free(path_str);
-	return (result);
 }

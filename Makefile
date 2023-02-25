@@ -23,8 +23,8 @@ LIBFT            =   libft/libft.a
 HEADERS_LIST	= pipex.h
 
 SRCS_LIST		=	main.c												\
-					parsing/file.c	parsing/command.c					\
-					error_handling/error.c
+					parsing.c					\
+					error.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 
@@ -77,8 +77,6 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADERS}
 
 ${DIR_OBJS}		:
 					${MKDIR} ${DIR_OBJS}
-					${MKDIR} ${DIR_OBJS}/parsing
-					${MKDIR} ${DIR_OBJS}/error_handling
 					@echo "\033[0;32m [${NAME}/bin] : ✔️ Successfully created bin directory\033[1;36m ${DIR_OBJS} !\033[0;00m"
 
 # ---- Usual Rules ---- #

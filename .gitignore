@@ -6,8 +6,8 @@
 *.ko
 *.obj
 *.elf
-bin/*
-pipex-tester/*
+
+bin/
 
 # Linker output
 *.ilk
@@ -20,7 +20,7 @@ pipex-tester/*
 
 # Libraries
 *.lib
-*.a
+libft/*.a
 *.la
 *.lo
 
@@ -58,3 +58,7 @@ dkms.conf
 #IDE file
 .vscode/
 .idea/
+
+#test file
+infile
+pipex_tester_42/
