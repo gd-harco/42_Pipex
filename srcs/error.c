@@ -6,10 +6,9 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:54:40 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/24 13:59:07 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:37:19 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "pipex.h"
 
@@ -52,7 +51,9 @@ void	clean_struct(t_pipex *data)
 
 static void	free_triple_array(char ***to_free)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (to_free[i])
 	{
 		ft_free_array((void **)to_free[i]);
