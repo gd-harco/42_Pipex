@@ -13,6 +13,9 @@
 #include "pipex.h"
 
 static char	*get_cmd_path(char *path_tab, char *cmd);
+static void	parse_file(t_pipex *data, char **argv, int argc);
+static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab);
+static char	**get_cmd_and_arg(char *argv, char **path_tab);
 
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
 {
@@ -40,7 +43,7 @@ void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
 	ft_free_split(path_tab);
 }
 
-void	parse_file(t_pipex *data, char **argv, int argc)
+static void	parse_file(t_pipex *data, char **argv, int argc)
 {
 	data->infile = ft_strdup(argv[1]);
 	data->infile_fd = open(data->infile, O_RDONLY);
@@ -52,7 +55,7 @@ void	parse_file(t_pipex *data, char **argv, int argc)
 		my_perror(data->outfile);
 }
 
-void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
+static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
 {
 	int	i;
 
@@ -68,7 +71,7 @@ void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
 	}
 }
 
-char	**get_cmd_and_arg(char *argv, char **path_tab)
+static char	**get_cmd_and_arg(char *argv, char **path_tab)
 {
 	char	**cmd_array;
 	char	*cmd_path;

@@ -31,6 +31,9 @@ typedef struct s_pipex
 	int		pipefd[2];
 }				t_pipex;
 
+//----------------------------------------------------------------exec/
+void	cmd_exec(t_pipex data, char **envp);
+
 //----------------------------------------------------------------error/
 void	my_perror(char *variable);
 void	clean_struct(t_pipex *data);
@@ -38,9 +41,5 @@ void	clean_exit(char **tab_to_free, t_pipex *data);
 
 //----------------------------------------------------------------parsing/
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc);
-void	parse_file(t_pipex *data, char **argv, int argc);
-void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab);
-char	**get_cmd_and_arg(char *argv, char **path_tab);
-
 
 #endif

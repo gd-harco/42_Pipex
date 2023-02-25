@@ -22,9 +22,10 @@ LIBFT            =   libft/libft.a
 
 HEADERS_LIST	= pipex.h
 
-SRCS_LIST		=	main.c												\
-					parsing.c					\
-					error.c
+SRCS_LIST		=	main.c		\
+					parsing.c	\
+					error.c		\
+					exec.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 
