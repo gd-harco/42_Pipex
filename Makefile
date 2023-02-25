@@ -16,8 +16,6 @@ DIR_HEADERS		=	includes/
 
 LIBFT            =   libft/libft.a
 
-
-
 # ---- Files ---- #
 
 HEADERS_LIST	= pipex.h
