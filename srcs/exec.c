@@ -27,7 +27,6 @@ void	cmd_exec(t_pipex data, char **envp)
 		cur_cmd++;
 	}
 	dup2(data.outfile_fd, STDOUT_FILENO);
-	pipe(data.pipefd);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -49,6 +48,7 @@ static void	initial_loop(t_pipex data, int cur_cmd, char **envp)
 		close(data.pipefd[0]);
 		dup2(data.pipefd[1], STDOUT_FILENO);
 		close(data.pipefd[1]);
+		//TODO Rajouter le check si la command exist ou pas
 		execve(data.command[cur_cmd][0], data.command[cur_cmd], envp);
 		my_perror(data.command[cur_cmd][0]);
 	}

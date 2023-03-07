@@ -10,7 +10,7 @@ DIR_OBJS		=	bin/
 
 DIR_SRCS		=	srcs/
 
-DIR_HEADERS		=	includes/
+DIR_HEADERS		=	include/
 
 # ---- Libs variables ---- #
 
@@ -18,7 +18,7 @@ LIBFT            =   libft/libft.a
 
 # ---- Files ---- #
 
-HEADERS_LIST	= pipex.h
+HEADERS_LIST	=	pipex.h
 
 SRCS_LIST		=	main.c		\
 					parsing.c	\
@@ -33,7 +33,7 @@ OBJS			=	${SRCS_LIST:%.c=${DIR_OBJS}%.o}
 
 CC				=	cc
 
-CFLAGS			=	 -g3
+CFLAGS			=	-Wall -Werror -Wextra -g3
 
 FRAMEWORKS		=	-Llibft -lft
 
