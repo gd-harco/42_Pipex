@@ -86,7 +86,7 @@ clean			:
 
 fclean			:	clean
 					${RM} ${NAME}
-					make -C libft re
+					make -C libft fclean
 					@echo "\033[0;31m [${NAME}] : ✔️ Successfully deleted executable\033[1;36m ${NAME} !\033[0;00m"
 
 re				:	fclean all

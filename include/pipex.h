@@ -27,6 +27,7 @@ typedef struct s_pipex
 	int		infile_fd;
 	int		outfile_fd;
 	int		pipefd[2];
+	pid_t	*pids;
 }				t_pipex;
 
 //----------------------------------------------------------------exec/

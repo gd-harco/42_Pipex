@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:54:40 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/27 12:32:38 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:02:12 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	clean_struct(t_pipex *data)
 		free(data->outfile);
 	if (data->command)
 		free_triple_array(data->command);
+	if (data->pids)
+		free(data->pids);
 	if (data->outfile_fd != -1)
 		close(data->outfile_fd);
 	if (data->infile_fd != -1)

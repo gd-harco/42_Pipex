@@ -61,6 +61,7 @@ static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
 
 	i = 0;
 	data->command_nb = argc - 3;
+	data->pids = malloc(sizeof(pid_t) * data->command_nb);
 	data->command = malloc(sizeof(char **) * data->command_nb + 1);
 	if (!data->command)
 		clean_exit(path_tab, data);
