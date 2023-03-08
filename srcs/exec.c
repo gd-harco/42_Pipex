@@ -15,7 +15,6 @@
 static void	initial_loop(t_pipex data, int cur_cmd, char **envp);
 static void	wait_pid(t_pipex data);
 
-
 void	cmd_exec(t_pipex data, char **envp)
 {
 	int		cur_cmd;
@@ -27,7 +26,6 @@ void	cmd_exec(t_pipex data, char **envp)
 		initial_loop(data, cur_cmd, envp);
 		cur_cmd++;
 	}
-
 	dup2(data.outfile_fd, STDOUT_FILENO);
 	data.pids[cur_cmd] = fork();
 	if (data.pids[cur_cmd] == 0)
