@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 10:47:17 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/25 14:28:14 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:51:41 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	data;
 
+	if (envp[0] == NULL)
+		exit (1);
 	if (argc < 5)
 		return (0);
-	if (envp)
-	{
-		parsing_full(&data, argv, envp, argc);
-		cmd_exec(data, envp);
-		clean_struct(&data);
-		return (0);
-	}
-	return (1);
+	parsing_full(&data, argv, envp, argc);
+	cmd_exec(data, envp);
+	clean_struct(&data);
+	return (0);
 }

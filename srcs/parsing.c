@@ -83,7 +83,8 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 	cmd_array = ft_split(argv, ' ');
 	if (!cmd_array)
 		return (NULL);
-	if (ft_strncmp(cmd_array[0], "./", 2) == 0 || ft_strncmp(cmd_array[0], "/", 1) == 0)
+	if (ft_strncmp(cmd_array[0], "./", 2) == 0
+		|| ft_strncmp(cmd_array[0], "/", 1) == 0)
 		return (full_path(cmd_array));
 	while (path_tab[++i])
 	{
