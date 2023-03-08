@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:28:23 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/08 12:13:38 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:09:22 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,39 @@ void	cmd_exec(t_pipex data, char **envp)
 		cur_cmd++;
 	}
 	dup2(data.outfile_fd, STDOUT_FILENO);
+	if (data.error)
+		close(data.outfile_fd);
 	data.pids[cur_cmd] = fork();
 	if (data.pids[cur_cmd] == 0)
 	{
 		execve(data.command[cur_cmd][0], data.command[cur_cmd], envp);
-		my_perror(data.command[cur_cmd][0]);
+		my_perror(data.command[cur_cmd][0], &data);
 	}
 	wait_pid(data);
 }
 
 static void	initial_loop(t_pipex data, int cur_cmd, char **envp)
 {
+	data.error = false;
 	pipe(data.pipefd);
 	data.pids[cur_cmd] = fork();
+	if (access(data.command[cur_cmd][0], X_OK) == -1)
+	{
+		data.error = true;
+		close(data.pipefd[0]);
+	}
 	if (data.pids[cur_cmd] == 0)
 	{
 		close(data.pipefd[0]);
 		dup2(data.pipefd[1], STDOUT_FILENO);
 		close(data.pipefd[1]);
 		execve(data.command[cur_cmd][0], data.command[cur_cmd], envp);
-		my_perror(data.command[cur_cmd][0]);
+		my_perror(data.command[cur_cmd][0], &data);
 	}
 	else
 	{
+		if (data.error)
+			close(data.infile_fd);
 		close(data.pipefd[1]);
 		dup2(data.pipefd[0], STDIN_FILENO);
 		close(data.pipefd[0]);

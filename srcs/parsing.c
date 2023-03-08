@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:23:13 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/25 13:04:05 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:07:26 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
 	char	*path_str;
 	int		index;
 
+	data->error = false;
 	parse_file(data, argv, argc);
 	index = 0;
 	path_str = NULL;
@@ -48,11 +49,11 @@ static void	parse_file(t_pipex *data, char **argv, int argc)
 	data->infile = ft_strdup(argv[1]);
 	data->infile_fd = open(data->infile, O_RDONLY);
 	if (data->infile_fd == -1)
-		my_perror(data->infile);
+		my_perror(data->infile, data);
 	data->outfile = ft_strdup(argv[argc - 1]);
 	data->outfile_fd = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->outfile_fd == -1)
-		my_perror(data->outfile);
+		my_perror(data->outfile, data);
 }
 
 static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
@@ -82,8 +83,8 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 	cmd_array = ft_split(argv, ' ');
 	if (!cmd_array)
 		return (NULL);
-	if (access(cmd_array[0], R_OK | X_OK) == 0)
-		return (cmd_array);
+	if (ft_strncmp(cmd_array[0], "./", 2) == 0 || ft_strncmp(cmd_array[0], "/", 1) == 0)
+		return (full_path(cmd_array));
 	while (path_tab[++i])
 	{
 		cmd_path = get_cmd_path(path_tab[i], cmd_array[0]);
@@ -93,10 +94,11 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 		{
 			free(cmd_array[0]);
 			cmd_array[0] = cmd_path;
-			break ;
+			return (cmd_array);
 		}
 	}
-	return (cmd_array);
+	my_perror(cmd_array[0], NULL);
+	return (NULL);
 }
 
 static char	*get_cmd_path(char *path_tab, char *cmd)

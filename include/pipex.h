@@ -27,6 +27,7 @@ typedef struct s_pipex
 	int		infile_fd;
 	int		outfile_fd;
 	int		pipefd[2];
+	bool	error;
 	pid_t	*pids;
 }				t_pipex;
 
@@ -34,11 +35,12 @@ typedef struct s_pipex
 void	cmd_exec(t_pipex data, char **envp);
 
 //----------------------------------------------------------------error/
-void	my_perror(char *variable);
+void	my_perror(char *variable, t_pipex *data);
 void	clean_struct(t_pipex *data);
 void	clean_exit(char **tab_to_free, t_pipex *data);
 
 //----------------------------------------------------------------parsing/
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc);
+char	**full_path(char **cmd_array);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:54:40 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/08 12:02:12 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:17:05 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ void	clean_exit(char **tab_to_free, t_pipex *data)
 	exit (1);
 }
 
-void	my_perror(char *variable)
+void	my_perror(char *variable, t_pipex *data)
 {
 	ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(variable, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
+	if (data)
+		data->error = true;
 }
 
 void	clean_struct(t_pipex *data)
