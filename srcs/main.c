@@ -21,12 +21,12 @@ int	main(int argc, char **argv, char *envp[])
 	if (argc < 5)
 	{
 		ft_putstr_fd("Too few argument provided, exiting\n", 2);
-		return (0);
+		exit (1);
 	}
 	if (argc > 5)
 	{
 		ft_putstr_fd("Too many argument provided, exiting\n", 2);
-		return (0);
+		exit (1);
 	}
 	parsing_full(&data, argv, envp, argc);
 	cmd_exec(data, envp);
