@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:28:23 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/08 16:30:52 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:57:26 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	cmd_exec(t_pipex data, char **envp)
 	int		cur_cmd;
 
 	cur_cmd = 0;
+	if (data.file_error)
+		cur_cmd = 1;
 	dup2(data.infile_fd, STDIN_FILENO);
 	while (cur_cmd < data.command_nb - 1)
 	{

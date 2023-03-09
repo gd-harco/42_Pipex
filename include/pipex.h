@@ -28,6 +28,7 @@ typedef struct s_pipex
 	int		outfile_fd;
 	int		pipefd[2];
 	bool	error;
+	bool	file_error;
 	pid_t	*pids;
 }				t_pipex;
 
