@@ -6,8 +6,8 @@
 *.ko
 *.obj
 *.elf
-
 bin/
+bin_bonus
 
 # Linker output
 *.ilk
@@ -26,7 +26,8 @@ libft/*.a
 
 # Shared objects (inc. Windows DLLs)
 *.dll
-*.so
+
+# Debug files*.so
 *.so.*
 *.dylib
 
@@ -37,9 +38,7 @@ libft/*.a
 *.i*86
 *.x86_64
 *.hex
-pipex
-
-# Debug files
+pipex*
 *.dSYM/
 *.su
 *.idb

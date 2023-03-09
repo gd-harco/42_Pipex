@@ -4,11 +4,17 @@
 
 NAME			=	pipex
 
+NAME_BONUS		=	pipex_bonus
+
 # ---- Directories ---- #
 
 DIR_OBJS		=	bin/
 
+DIR_OBJS_BONUS	=	bin_bonus/
+
 DIR_SRCS		=	srcs/
+
+DIR_SRCS_BONUS	=	srcs_bonus/
 
 DIR_HEADERS		=	include/
 
@@ -26,9 +32,17 @@ SRCS_LIST		=	main.c			\
 					error.c			\
 					exec.c
 
+SRCS_LIST_BONUS	=	main_bonus.c			\
+					parsing_bonus.c		\
+					parsing_utils_bonus.c	\
+					error_bonus.c			\
+					exec_bonus.c
+
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 
 OBJS			=	${SRCS_LIST:%.c=${DIR_OBJS}%.o}
+
+OBJS_BONUS		=	${SRCS_LIST_BONUS:%.c=${DIR_OBJS_BONUS}%.o}
 
 # ---- Compilation ---- #
 
@@ -37,12 +51,6 @@ CC				=	cc
 CFLAGS			=	-Wall -Werror -Wextra
 
 FRAMEWORKS		=	-Llibft -lft
-
-# ---- OS Variables ---- #
-
-UNAME			=	$(shell uname -s)
-
-
 
 # ---- Commands ---- #
 
@@ -54,19 +62,22 @@ MKDIR			=	mkdir -p
 
 all				:	${NAME}
 
+bonus			:	${NAME_BONUS}
+
+full			:	all bonus
+
 # ---- Variables Rules ---- #
 
 ${NAME}			:	${OBJS} ${HEADERS} ${LIBFT}
 					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS} ${FRAMEWORKS} -o ${NAME}
-					@echo "\033[0;32m [${NAME}] : ✔️ Successfully built so_long executable\033[1;36m ${NAME}\033[0;32m for \033[1;36m${UNAME} !\033[0;00m"
+
+${NAME_BONUS}	:	${OBJS_BONUS} ${HEADERS} ${LIBFT}
+					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS_BONUS} ${FRAMEWORKS} -o ${NAME_BONUS}
 
 # ---- Lib rules ---- #
 
 ${LIBFT}		:
 						make -C libft
-						@echo "\033[0;32m [${NAME}/libft] : ✔️ Successfully built libft\033[1;36m ${@} !\033[0;32m"
-
-
 
 # ---- Compiled Rules ---- #
 
@@ -77,18 +88,24 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADERS}
 
 ${DIR_OBJS}		:
 					${MKDIR} ${DIR_OBJS}
-					@echo "\033[0;32m [${NAME}/bin] : ✔️ Successfully created bin directory\033[1;36m ${DIR_OBJS} !\033[0;00m"
 
+${OBJS_BONUS}			:	| ${DIR_OBJS_BONUS}
+
+${DIR_OBJS_BONUS}%.o	:	${DIR_SRCS_BONUS}%.c ${HEADERS}
+							${CC} ${CFLAGS} -I ${DIR_HEADERS} -c $< -o $@
+
+${DIR_OBJS_BONUS}		:
+					${MKDIR} ${DIR_OBJS_BONUS}
 # ---- Usual Rules ---- #
 
 clean			:
 					${RM} ${OBJS}
-					@echo "\033[0;31m [${NAME}/bin] : ✔️ Successfully cleaned bin directories\033[1;36m bin/ !\033[0;00m"
+					${RM} ${OBJS_BONUS}
 
 fclean			:	clean
 					${RM} ${NAME}
+					${RM} ${NAME_BONUS}
 					make -C libft fclean
-					@echo "\033[0;31m [${NAME}] : ✔️ Successfully deleted executable\033[1;36m ${NAME} !\033[0;00m"
 
 re				:	fclean all
 
