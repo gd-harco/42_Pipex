@@ -14,7 +14,7 @@
 
 static char	*get_cmd_path(char *path_tab, char *cmd);
 static void	parse_file(t_pipex *data, char **argv, int argc);
-static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab);
+static void	parse_cmd(t_pipex *data, char **argv, char **path_tab);
 static char	**get_cmd_and_arg(char *argv, char **path_tab);
 
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
@@ -40,14 +40,14 @@ void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
 		clean_exit(NULL, data);
 	path_tab = ft_split(path_str, ':');
 	free(path_str);
-	parse_cmd(data, argv, argc, path_tab);
+	parse_cmd(data, argv, path_tab);
 	ft_free_split(path_tab);
 }
 
 static void	parse_file(t_pipex *data, char **argv, int argc)
 {
-	data->infile_fd = open(argv[1], O_RDONLY);
 	data->file_error = false;
+	data->infile_fd = open(argv[1], O_RDONLY);
 	if (data->infile_fd == -1)
 	{
 		my_perror(argv[1], data);
@@ -58,12 +58,11 @@ static void	parse_file(t_pipex *data, char **argv, int argc)
 		my_perror(argv[argc - 1], data);
 }
 
-static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
+static void	parse_cmd(t_pipex *data, char **argv, char **path_tab)
 {
 	int	i;
 
 	i = 0;
-	data->command_nb = argc - 3;
 	data->pids = malloc(sizeof(pid_t) * data->command_nb);
 	data->command = malloc(sizeof(char **) * data->command_nb + 1);
 	if (!data->command)
