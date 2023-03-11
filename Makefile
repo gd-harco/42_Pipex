@@ -28,14 +28,14 @@ HEADERS_LIST	=	pipex.h
 
 SRCS_LIST		=	main.c			\
 					parsing.c		\
-					parsing_2.c	\
+					parsing_2.c		\
 					error.c			\
 					exec.c
 
-SRCS_LIST_BONUS	=	main_bonus.c			\
+SRCS_LIST_BONUS	=	main_bonus.c		\
 					parsing_bonus.c		\
-					parsing_utils_bonus.c	\
-					error_bonus.c			\
+					parsing_2_bonus.c	\
+					error_bonus.c		\
 					exec_bonus.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
@@ -72,7 +72,8 @@ ${NAME}			:	${OBJS} ${HEADERS} ${LIBFT}
 					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS} ${FRAMEWORKS} -o ${NAME}
 
 ${NAME_BONUS}	:	${OBJS_BONUS} ${HEADERS} ${LIBFT}
-					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS_BONUS} ${FRAMEWORKS} -o ${NAME_BONUS}
+					rm -rf pipex
+					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS_BONUS} ${FRAMEWORKS} -o pipex
 
 # ---- Lib rules ---- #
 
