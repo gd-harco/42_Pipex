@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:02:04 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/02/15 13:05:23 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:20:58 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	clean_exit(char **tab_to_free, t_pipex *data);
 
 //----------------------------------------------------------------parsing/
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc);
+bool	check_valid_arg(int argc, t_pipex *data);
 char	**full_path(char **cmd_array);
 
 #endif

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:28:23 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/09 11:57:26 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:51:36 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	initial_loop(t_pipex data, int cur_cmd, char **envp);
 static void	wait_pid(t_pipex data);
+static void	duplicate_fds(t_pipex *data, int i);
 
 void	cmd_exec(t_pipex data, char **envp)
 {
@@ -23,50 +23,11 @@ void	cmd_exec(t_pipex data, char **envp)
 	if (data.file_error)
 		cur_cmd = 1;
 	dup2(data.infile_fd, STDIN_FILENO);
-	while (cur_cmd < data.command_nb - 1)
+	while (cur_cmd < data.command_nb)
 	{
-		if (data.command[cur_cmd])
-			initial_loop(data, cur_cmd, envp);
-		cur_cmd++;
-	}
-	dup2(data.outfile_fd, STDOUT_FILENO);
-	if (data.error)
-		close(data.outfile_fd);
-	data.pids[cur_cmd] = fork();
-	if (data.pids[cur_cmd] == 0)
-	{
-		execve(data.command[cur_cmd][0], data.command[cur_cmd], envp);
-		my_perror(data.command[cur_cmd][0], &data);
+		
 	}
 	wait_pid(data);
-}
-
-static void	initial_loop(t_pipex data, int cur_cmd, char **envp)
-{
-	data.error = false;
-	pipe(data.pipefd);
-	data.pids[cur_cmd] = fork();
-	if (access(data.command[cur_cmd][0], X_OK) == -1)
-	{
-		data.error = true;
-		close(data.pipefd[0]);
-	}
-	if (data.pids[cur_cmd] == 0)
-	{
-		close(data.pipefd[0]);
-		dup2(data.pipefd[1], STDOUT_FILENO);
-		close(data.pipefd[1]);
-		execve(data.command[cur_cmd][0], data.command[cur_cmd], envp);
-		my_perror(data.command[cur_cmd][0], &data);
-	}
-	else
-	{
-		if (data.error)
-			close(data.infile_fd);
-		close(data.pipefd[1]);
-		dup2(data.pipefd[0], STDIN_FILENO);
-		close(data.pipefd[0]);
-	}
 }
 
 static void	wait_pid(t_pipex data)
@@ -80,3 +41,33 @@ static void	wait_pid(t_pipex data)
 		i++;
 	}
 }
+
+static void	duplicate_fds(t_pipex *data, int i)
+{
+	if (i == 0)
+	{
+		if (dup2(data->infile, STDIN_FILENO) == -1)
+			exit(3);
+		close(data->infile);
+	}
+	else
+	{
+		if (dup2(data->fds[i - 1][0], STDIN_FILENO) == -1)
+			exit(3);
+		close(data->fds[i - 1][0]);
+	}
+	if (i == data->nb_of_commands - 1)
+	{
+		if (dup2(data->outfile, STDOUT_FILENO) == -1)
+			exit(3);
+		close(data->outfile);
+	}
+	else
+	{
+		if (dup2(data->fds[i][1], STDOUT_FILENO) == -1)
+			exit(3);
+		close(data->fds[i][1]);
+	}
+}
+
+

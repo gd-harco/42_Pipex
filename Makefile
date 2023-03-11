@@ -28,7 +28,7 @@ HEADERS_LIST	=	pipex.h
 
 SRCS_LIST		=	main.c			\
 					parsing.c		\
-					parsing_utils.c	\
+					parsing_2.c	\
 					error.c			\
 					exec.c
 

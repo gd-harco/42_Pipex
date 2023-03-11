@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 10:47:17 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/09 12:04:28 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:20:49 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,8 @@ int	main(int argc, char **argv, char *envp[])
 
 	if (envp[0] == NULL)
 		exit (1);
-	if (argc < 5)
-	{
-		ft_putstr_fd("Too few argument provided, exiting\n", 2);
-		exit (1);
-	}
-	if (argc > 5)
-	{
-		ft_putstr_fd("Too many argument provided, exiting\n", 2);
-		exit (1);
-	}
+	if (!check_valid_arg(argc, &data))
+		exit (3);
 	parsing_full(&data, argv, envp, argc);
 	cmd_exec(data, envp);
 	clean_struct(&data);
