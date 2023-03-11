@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 13:37:17 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/11 15:22:27 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/11 15:41:06 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	wait_pid(t_pipex data)
 	int	i;
 
 	i = 0;
-	while (i <= data.command_nb)
+	while (i <= data.command_nb - 1)
 	{
 		waitpid(data.pids[i], NULL, 0);
 		i++;

@@ -72,8 +72,7 @@ ${NAME}			:	${OBJS} ${HEADERS} ${LIBFT}
 					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS} ${FRAMEWORKS} -o ${NAME}
 
 ${NAME_BONUS}	:	${OBJS_BONUS} ${HEADERS} ${LIBFT}
-					rm -rf pipex
-					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS_BONUS} ${FRAMEWORKS} -o pipex
+					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS_BONUS} ${FRAMEWORKS} -o ${NAME}
 
 # ---- Lib rules ---- #
 
