@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/11 13:37:17 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/03/11 13:37:17 by gd-harco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:28:23 by gd-harco          #+#    #+#             */
@@ -25,7 +37,7 @@ void	cmd_exec(t_pipex data, char **envp)
 	dup2(data.infile_fd, STDIN_FILENO);
 	while (cur_cmd < data.command_nb)
 	{
-		
+		ft_putendl_fd("help", 1);
 	}
 	wait_pid(data);
 }
@@ -46,9 +58,9 @@ static void	duplicate_fds(t_pipex *data, int i)
 {
 	if (i == 0)
 	{
-		if (dup2(data->infile, STDIN_FILENO) == -1)
+		if (dup2(data->infile_fd, STDIN_FILENO) == -1)
 			exit(3);
-		close(data->infile);
+		close(data->infile_fd);
 	}
 	else
 	{
@@ -56,7 +68,7 @@ static void	duplicate_fds(t_pipex *data, int i)
 			exit(3);
 		close(data->fds[i - 1][0]);
 	}
-	if (i == data->nb_of_commands - 1)
+	if (i == data->command_nb - 1)
 	{
 		if (dup2(data->outfile, STDOUT_FILENO) == -1)
 			exit(3);
@@ -69,5 +81,3 @@ static void	duplicate_fds(t_pipex *data, int i)
 		close(data->fds[i][1]);
 	}
 }
-
-

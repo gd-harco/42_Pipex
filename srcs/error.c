@@ -39,10 +39,6 @@ void	my_perror(char *variable, t_pipex *data)
 
 void	clean_struct(t_pipex *data)
 {
-	if (data->infile)
-		free(data->infile);
-	if (data->outfile)
-		free(data->outfile);
 	if (data->command)
 		free_triple_array(data->command);
 	if (data->pids)

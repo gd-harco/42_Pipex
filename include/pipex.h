@@ -20,8 +20,6 @@
 
 typedef struct s_pipex
 {
-	char	*infile;
-	char	*outfile;
 	char	***command;
 	int		command_nb;
 	int		infile_fd;

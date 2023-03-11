@@ -46,18 +46,16 @@ void	parsing_full(t_pipex *data, char **argv, char **envp, int argc)
 
 static void	parse_file(t_pipex *data, char **argv, int argc)
 {
-	data->infile = ft_strdup(argv[1]);
-	data->infile_fd = open(data->infile, O_RDONLY);
+	data->infile_fd = open(argv[1], O_RDONLY);
 	data->file_error = false;
 	if (data->infile_fd == -1)
 	{
-		my_perror(data->infile, data);
+		my_perror(argv[1], data);
 		data->file_error = true;
 	}
-	data->outfile = ft_strdup(argv[argc - 1]);
-	data->outfile_fd = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	data->outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->outfile_fd == -1)
-		my_perror(data->outfile, data);
+		my_perror(argv[argc - 1], data);
 }
 
 static void	parse_cmd(t_pipex *data, char **argv, int argc, char **path_tab)
