@@ -60,9 +60,13 @@ MKDIR			=	mkdir -p
 
 # ********* RULES ******** #
 
-all				:	${NAME}
+all				:
+					make -C libft/
+					make ${NAME}
 
-bonus			:	${NAME_BONUS}
+bonus			:
+					make -C libft/
+					make ${NAME_BONUS}
 
 full			:	all bonus
 
