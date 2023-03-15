@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 18:47:15 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/03/15 18:47:15 by gd-harco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:54:40 by gd-harco          #+#    #+#             */
@@ -12,7 +24,7 @@
 
 #include "pipex.h"
 
-static void	free_triple_array(char ***to_free);
+static void	free_triple_array(t_pipex *data);
 
 void	clean_exit(char **tab_to_free, t_pipex *data)
 {
@@ -40,7 +52,7 @@ void	my_perror(char *variable, t_pipex *data)
 void	clean_struct(t_pipex *data)
 {
 	if (data->command)
-		free_triple_array(data->command);
+		free_triple_array(data);
 	if (data->pids)
 		free(data->pids);
 	if (data->outfile_fd != -1)
@@ -49,15 +61,15 @@ void	clean_struct(t_pipex *data)
 		close(data->infile_fd);
 }
 
-static void	free_triple_array(char ***to_free)
+static void	free_triple_array(t_pipex *data)
 {
 	int	i;
 
 	i = 0;
-	while (to_free[i])
+	while (data->command[i])
 	{
-		ft_free_array((void **)to_free[i]);
+		ft_free_array((void**)data->command[i]);
 		i++;
 	}
-	free(to_free);
+	free(data->command);
 }
