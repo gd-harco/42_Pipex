@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:23:13 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/11 13:38:43 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:08:13 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	parse_cmd(t_pipex *data, char **argv, char **path_tab)
 		data->command[i] = get_cmd_and_arg(argv[i + 2], path_tab);
 		i++;
 	}
-	data->command[i] = NULL;
 }
 
 static char	**get_cmd_and_arg(char *argv, char **path_tab)
