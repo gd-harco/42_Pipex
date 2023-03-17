@@ -21,6 +21,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	s1b = (unsigned char *)s1;
 	s2b = (unsigned char *)s2;
 	x = 0;
+	if (!s1 || !s2)
+		return (-1);
 	while ((s1b[x] || s2b[x]) && x < n)
 	{
 		if (s1b[x] == s2b[x])

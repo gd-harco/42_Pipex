@@ -49,7 +49,6 @@ OBJS_BONUS		=	${SRCS_LIST_BONUS:%.c=${DIR_OBJS_BONUS}%.o}
 CC				=	cc
 
 CFLAGS			=	-Wall -Werror -Wextra -g3
-
 FRAMEWORKS		=	-Llibft -lft
 
 # ---- Commands ---- #
