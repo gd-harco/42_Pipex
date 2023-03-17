@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char *envp[])
 
 	if (envp[0] == NULL)
 		exit (1);
-	if (!check_valid_arg(argc, &data))
+	if (!check_valid_arg(argc, &data, argv))
 		exit (3);
 	parsing_full(&data, argv, envp, argc);
 	cmd_exec(data, envp);

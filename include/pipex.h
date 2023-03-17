@@ -40,7 +40,8 @@ void	clean_exit(char **tab_to_free, t_pipex *data);
 
 //----------------------------------------------------------------parsing/
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc);
-bool	check_valid_arg(int argc, t_pipex *data);
+
+bool	check_valid_arg(int argc, t_pipex *data, char **argv);
 char	**full_path(char **cmd_array);
 
 #endif

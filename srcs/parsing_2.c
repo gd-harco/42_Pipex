@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 15:32:09 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/10 16:21:02 by gd-harco         ###   ########lyon.fr   */
+/*   Created: 2023/03/17 13:50:40 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/03/17 13:50:40 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	check_valid_arg(int argc, t_pipex *data)
+bool	check_valid_arg(int argc, t_pipex *data, char **argv)
 {
 	if (argc < 5)
 	{
@@ -24,6 +24,11 @@ bool	check_valid_arg(int argc, t_pipex *data)
 	{
 		ft_putendl_fd("Too many argument provided", STDERR_FILENO);
 		ft_putendl_fd("Usage : ./pipex file1 cmd1 cmd2 file2", STDERR_FILENO);
+		return (false);
+	}
+	if (argv[5] == NULL)
+	{
+		ft_printf("No such file or directory: \n");
 		return (false);
 	}
 	data->command_nb = argc - 3;

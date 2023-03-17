@@ -6,19 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 13:37:25 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/17 13:37:25 by gd-harco         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 16:23:13 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/16 15:08:13 by gd-harco         ###   ########lyon.fr   */
+/*   Updated: 2023/03/17 13:56:33 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +86,6 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 	cmd_array = ft_split(argv, ' ');
 	if (!cmd_array || cmd_array[0] == NULL)
 		return (NULL);
-	//TODO add protec if one string is null
 	if (ft_strncmp(cmd_array[0], "./", 2) == 0
 		|| ft_strncmp(cmd_array[0], "/", 1) == 0)
 		return (full_path(cmd_array));

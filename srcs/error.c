@@ -56,7 +56,7 @@ static void	free_triple_array(t_pipex *data)
 	i = 0;
 	while (i < data->command_nb)
 	{
-		ft_free_array((void**)data->command[i]);
+		ft_free_array((void **)data->command[i]);
 		i++;
 	}
 	free(data->command);
