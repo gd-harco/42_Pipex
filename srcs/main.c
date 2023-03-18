@@ -15,7 +15,6 @@
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	data;
-//TODO ne rien faire si fichier out ""
 	if (envp[0] == NULL)
 		exit (1);
 	if (!check_valid_arg(argc, &data))

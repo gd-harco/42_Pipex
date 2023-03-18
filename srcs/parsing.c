@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 13:37:25 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/18 13:20:43 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:26:10 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static void	parse_file(t_pipex *data, char **argv, int argc)
 	}
 	data->outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->outfile_fd == -1)
+	{
 		my_perror(argv[argc - 1], data);
+		exit(3);
+	}
 }
 
 static void	parse_cmd(t_pipex *data, char **argv, char **path_tab)
