@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/18 13:13:31 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/03/18 13:13:31 by gd-harco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:02:04 by gd-harco          #+#    #+#             */
@@ -14,6 +26,7 @@
 # define PIPEX_H
 # include "../libft/includes/libft.h"
 # include <string.h>
+# include <stdio.h>
 # include <errno.h>
 # include <sys/wait.h>
 # include <fcntl.h>
@@ -41,7 +54,7 @@ void	clean_exit(char **tab_to_free, t_pipex *data);
 //----------------------------------------------------------------parsing/
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc);
 
-bool	check_valid_arg(int argc, t_pipex *data, char **argv);
+bool	check_valid_arg(int argc, t_pipex *data);
 char	**full_path(char **cmd_array);
 
 #endif

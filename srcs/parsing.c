@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 13:37:25 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/17 13:56:33 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:20:43 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,10 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 		if (access(cmd_path, R_OK | X_OK) != 0)
 			free(cmd_path);
 		else
-		{
-			free(cmd_array[0]);
-			cmd_array[0] = cmd_path;
-			return (cmd_array);
-		}
+			return (free(cmd_array[0]), cmd_array[0] = cmd_path, cmd_array);
 	}
-	my_perror(cmd_array[0], NULL);
+	perror(cmd_array[0]);
+	clean_exit(cmd_array, NULL);
 	return (NULL);
 }
 

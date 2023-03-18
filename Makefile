@@ -48,7 +48,7 @@ OBJS_BONUS		=	${SRCS_LIST_BONUS:%.c=${DIR_OBJS_BONUS}%.o}
 
 CC				=	cc
 
-CFLAGS			=	-Wall -Werror -Wextra -g3
+CFLAGS			=	-Wall -Werror -Wextra -g3 -fsanitize=address
 FRAMEWORKS		=	-Llibft -lft
 
 # ---- Commands ---- #
@@ -63,19 +63,10 @@ all				:
 					make -C libft/
 					make ${NAME}
 
-bonus			:
-					make -C libft/
-					make ${NAME_BONUS}
-
-full			:	all bonus
-
 # ---- Variables Rules ---- #
 
 ${NAME}			:	${OBJS} ${HEADERS} ${LIBFT}
 					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS} ${FRAMEWORKS} -o ${NAME}
-
-${NAME_BONUS}	:	${OBJS_BONUS} ${HEADERS} ${LIBFT}
-					${CC} ${CFLAGS} -I ${DIR_HEADERS} ${OBJS_BONUS} ${FRAMEWORKS} -o ${NAME}
 
 # ---- Lib rules ---- #
 
@@ -92,22 +83,13 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADERS}
 ${DIR_OBJS}		:
 					${MKDIR} ${DIR_OBJS}
 
-${OBJS_BONUS}			:	| ${DIR_OBJS_BONUS}
-
-${DIR_OBJS_BONUS}%.o	:	${DIR_SRCS_BONUS}%.c ${HEADERS}
-							${CC} ${CFLAGS} -I ${DIR_HEADERS} -c $< -o $@
-
-${DIR_OBJS_BONUS}		:
-					${MKDIR} ${DIR_OBJS_BONUS}
 # ---- Usual Rules ---- #
 
 clean			:
 					${RM} ${OBJS}
-					${RM} ${OBJS_BONUS}
 
 fclean			:	clean
 					${RM} ${NAME}
-					${RM} ${NAME_BONUS}
 					make -C libft fclean
 
 re				:	fclean all

@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/18 13:15:35 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/03/18 13:15:35 by gd-harco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:54:40 by gd-harco          #+#    #+#             */
@@ -19,8 +31,6 @@ void	clean_exit(char **tab_to_free, t_pipex *data)
 	if (tab_to_free)
 	{
 		ft_free_split(tab_to_free);
-		ft_putstr_fd("clean exit message : ", STDERR_FILENO);
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	}
 	if (data)
 		clean_struct(data);
