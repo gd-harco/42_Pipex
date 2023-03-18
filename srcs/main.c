@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:44:01 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/11 15:44:01 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:29:35 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	data;
+
 	if (envp[0] == NULL)
 		exit (1);
 	if (!check_valid_arg(argc, &data))
