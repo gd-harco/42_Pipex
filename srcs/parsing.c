@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 13:37:25 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/03/18 13:26:10 by gd-harco         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:44:48 by gd-harco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 	i = -1;
 	cmd_array = ft_split(argv, ' ');
 	if (!cmd_array || cmd_array[0] == NULL)
-		return (NULL);
+		return (ft_free_split(cmd_array), NULL);
 	if (ft_strncmp(cmd_array[0], "./", 2) == 0
 		|| ft_strncmp(cmd_array[0], "/", 1) == 0)
 		return (full_path(cmd_array));
@@ -101,7 +101,8 @@ static char	**get_cmd_and_arg(char *argv, char **path_tab)
 			return (free(cmd_array[0]), cmd_array[0] = cmd_path, cmd_array);
 	}
 	perror(cmd_array[0]);
-	clean_exit(cmd_array, NULL);
+	ft_free_split(cmd_array);
+	exit(-1);
 	return (NULL);
 }
 
