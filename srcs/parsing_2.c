@@ -40,3 +40,18 @@ char	**full_path(char **cmd_array)
 		exit(1);
 	}
 }
+
+bool check_path_variable(char **envp)
+{
+	int	index;
+
+	index = 0;
+	while (envp[index])
+	{
+		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
+			return(true);
+		index++;
+	}
+	ft_putstr_fd("PATH not found, please check your environnement variable\n", STDERR_FILENO);
+	return (false);
+}

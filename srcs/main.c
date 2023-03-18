@@ -16,8 +16,8 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	data;
 
-	if (envp[0] == NULL)
-		exit (1);
+	if (!check_path_variable(envp))
+		exit (4);
 	if (!check_valid_arg(argc, &data))
 		exit (3);
 	parsing_full(&data, argv, envp, argc);

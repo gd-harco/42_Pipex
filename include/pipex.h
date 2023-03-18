@@ -54,6 +54,7 @@ void	clean_exit(char **tab_to_free, t_pipex *data);
 //----------------------------------------------------------------parsing/
 void	parsing_full(t_pipex *data, char **argv, char **envp, int argc);
 
+bool	check_path_variable(char **envp);
 bool	check_valid_arg(int argc, t_pipex *data);
 char	**full_path(char **cmd_array);
 
